@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tiktok_clone/firebase_options.dart';
 import 'package:tiktok_clone/utils/widgets/ui_button.dart';
 
@@ -38,14 +39,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  final ValueNotifier<GoogleSignInAccount?> _googleSignInAccount =
+      ValueNotifier<GoogleSignInAccount?>(null);
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
+  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: [
+    'email',
+    'openid',
+    'profile',
+  ]);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,18 +55,55 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: UiButton(
-          icon: SvgPicture.asset('assets/images/ic_like_inactive.svg'),
-          value: '100',
-          onTap: () {},
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body: ValueListenableBuilder(
+          valueListenable: _googleSignInAccount,
+          builder: (context, GoogleSignInAccount? googleSignInAccount, child) {
+            return Center(
+              child: googleSignInAccount == null
+                  ? UiButton(
+                      icon: SvgPicture.asset('assets/images/ic_like_inactive.svg'),
+                      value: 'Google Sign In',
+                      onTap: () async {
+                        try {
+                          GoogleSignInAccount? googleSignInAcc = await _googleSignIn.signIn();
+                          debugPrint("=====Google Sign In Account: $googleSignInAcc");
+                          GoogleSignInAuthentication? auth;
+                          if (googleSignInAcc != null) {
+                            auth = await googleSignInAcc.authentication;
+                          }
+                          debugPrint("=====Google Sign In Auth 1: ${auth?.idToken}");
+                          if (googleSignInAcc != null && auth?.idToken == null) {
+                            googleSignInAcc =
+                                await _googleSignIn.signInSilently(reAuthenticate: true);
+                            if (googleSignInAcc != null) {
+                              auth = await googleSignInAcc.authentication;
+                            }
+                            debugPrint("=====Google Sign In Auth: ${auth?.idToken}");
+                          }
+                          _googleSignInAccount.value = googleSignInAcc;
+                        } catch (error) {
+                          debugPrint("=====Error: $error");
+                        }
+                      },
+                    )
+                  : Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.network(
+                          googleSignInAccount.photoUrl ?? '',
+                          width: 68,
+                          height: 68,
+                        ),
+                        const SizedBox(height: 32),
+                        Text(
+                          googleSignInAccount.displayName ?? '',
+                          style: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                        )
+                      ],
+                    ),
+            );
+          }),
     );
   }
 }
