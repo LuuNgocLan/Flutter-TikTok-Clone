@@ -62,7 +62,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1000253563442',
     projectId: 'tiktok-clone-a196e',
     storageBucket: 'tiktok-clone-a196e.appspot.com',
-    iosClientId: '1000253563442-dsmmud7jcpmrpnnh430uvp5uqffd30nt.apps.googleusercontent.com',
     iosBundleId: 'com.example.tiktokClone',
   );
 }

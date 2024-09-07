@@ -46,7 +46,7 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>GIDClientID</key>
-	<string>1000253563442-dsmmud7jcpmrpnnh430uvp5uqffd30nt.apps.googleusercontent.com</string>
+	<string>$(CLIENT_ID)</string>
 	<!-- <key>GIDServerClientID</key>
 	<string>[YOUR SERVER CLIENT ID]</string> -->
 	<!-- Google Sign-in Section -->
@@ -57,7 +57,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.1000253563442-dsmmud7jcpmrpnnh430uvp5uqffd30nt</string>
+				<string>$(REVERSED_CLIENT_ID)</string>
 			</array>
 		</dict>
 	</array>

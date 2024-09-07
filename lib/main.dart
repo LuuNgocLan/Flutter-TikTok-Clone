@@ -89,10 +89,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   : Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Image.network(
-                          googleSignInAccount.photoUrl ?? '',
-                          width: 68,
-                          height: 68,
+                        GoogleUserCircleAvatar(
+                          identity: googleSignInAccount,
                         ),
                         const SizedBox(height: 32),
                         Text(
