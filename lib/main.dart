@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:tiktok_clone/config/app_router.dart';
+import 'package:tiktok_clone/config/locator.dart';
 import 'package:tiktok_clone/firebase_options.dart';
 import 'package:tiktok_clone/utils/widgets/ui_button.dart';
 
@@ -10,6 +12,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  setupLocator();
   runApp(const MyApp());
 }
 
@@ -18,13 +21,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      routerConfig: appRouter.config(),
     );
   }
 }
