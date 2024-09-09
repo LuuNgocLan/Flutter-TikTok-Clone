@@ -35,8 +35,10 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Timeline
 
-- [ ] Use Login SDK to login 
-- [ ] Apply Bloc 
+- [ ] Apply Bloc and Auto route
+- [ ] Create awesome component 
 - [ ] Home Screen
+- [ ] Profile
+
 
 
