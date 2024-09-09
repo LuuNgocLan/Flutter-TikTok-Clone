@@ -24,6 +24,15 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
+## Used Packages 
+
+- **`auto_route`**: Manages routing for the app, simplifying navigation between screens with minimal boilerplate.
+- **`get_it`**: A simple service locator for dependency injection to manage the app's services.
+- **`flutter_bloc`**: For state management using the BLoC (Business Logic Component) pattern, enabling predictable state changes.
+- **`auto_route_generator`**: Code generation for Auto Route navigation.
+- **`build_runner`**: A tool to run code generation for various packages like Auto Route.
+
+
 ## Timeline
 
 - [ ] Use Login SDK to login 
